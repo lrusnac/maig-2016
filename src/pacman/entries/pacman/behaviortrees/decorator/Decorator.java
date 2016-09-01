@@ -1,11 +1,9 @@
-package pacman.entries.pacman.behaviortrees;
+package pacman.entries.pacman.behaviortrees.decorator;
+
+import pacman.entries.pacman.behaviortrees.Node;
 
 public abstract class Decorator extends Node {
     private Node child;
-
-    public Decorator() {
-        super();
-    }
 
     public Node getChild() {
         return child;

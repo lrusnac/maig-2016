@@ -1,7 +1,9 @@
-package pacman.entries.pacman.behaviortrees;
+package pacman.entries.pacman.behaviortrees.composite;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pacman.entries.pacman.behaviortrees.Node;
 
 public abstract class Composite extends Node {
     private List<Node> children;
