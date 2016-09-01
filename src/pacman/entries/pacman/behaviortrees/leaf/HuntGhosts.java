@@ -12,14 +12,13 @@ public class HuntGhosts extends Leaf {
         Status status = Status.FAILURE;
 
         GHOST edibleGhost = null;
-        int distanceToNearestEdibleGhost = Integer.MAX_VALUE;
+        int distanceToNearestEdibleGhost = 1111; // TODO figure out the max distance I want to use for eating a ghost
 
         for (GHOST ghost : GHOST.values()) {
             if (context.getGame().isGhostEdible(ghost)) {
                 int distanceToGhost = context.getGame().getShortestPathDistance(context.getGame().getPacmanCurrentNodeIndex(),
                         context.getGame().getGhostCurrentNodeIndex(ghost));
-                if (distanceToGhost < 1111 && distanceToGhost < distanceToNearestEdibleGhost) { // TODO figure out the max distance
-                                                                                                // I want to use for eating a ghost
+                if (distanceToGhost < distanceToNearestEdibleGhost) {
                     distanceToNearestEdibleGhost = distanceToGhost;
                     edibleGhost = ghost;
                 }
