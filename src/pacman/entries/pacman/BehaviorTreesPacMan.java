@@ -5,11 +5,9 @@ import pacman.entries.pacman.behaviortrees.Context;
 import pacman.entries.pacman.behaviortrees.Node;
 import pacman.entries.pacman.behaviortrees.Status;
 import pacman.entries.pacman.behaviortrees.composite.Selector;
-import pacman.entries.pacman.behaviortrees.composite.Sequence;
-import pacman.entries.pacman.behaviortrees.leaf.ChooseDirection;
 import pacman.entries.pacman.behaviortrees.leaf.HuntGhosts;
 import pacman.entries.pacman.behaviortrees.leaf.RunFromGhosts;
-import pacman.entries.pacman.behaviortrees.leaf.SearchDot;
+import pacman.entries.pacman.behaviortrees.leaf.SearchPill;
 import pacman.game.Constants.MOVE;
 import pacman.game.Game;
 
@@ -41,20 +39,14 @@ public class BehaviorTreesPacMan extends Controller<MOVE> {
     private void buildTree() {
         this.root = new Selector();
         Node ghosts = new Selector();
-        Node decisions = new Sequence();
-
-        ((Selector) root).addChild(ghosts);
-        ((Selector) root).addChild(decisions);
-
         Node runFromGhosts = new RunFromGhosts();
         Node huntGhosts = new HuntGhosts();
-        Node searchDot = new SearchDot();
-        Node chooseDirection = new ChooseDirection();
+        Node searchPill = new SearchPill();
+
+        ((Selector) root).addChild(ghosts);
+        ((Selector) root).addChild(searchPill);
 
         ((Selector) ghosts).addChild(runFromGhosts);
         ((Selector) ghosts).addChild(huntGhosts);
-
-        ((Selector) decisions).addChild(searchDot);
-        ((Selector) decisions).addChild(chooseDirection);
     }
 }
