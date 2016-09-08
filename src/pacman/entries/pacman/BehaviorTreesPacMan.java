@@ -4,14 +4,17 @@ import pacman.controllers.Controller;
 import pacman.entries.pacman.behaviortrees.Context;
 import pacman.entries.pacman.behaviortrees.Node;
 import pacman.entries.pacman.behaviortrees.Status;
+import pacman.entries.pacman.behaviortrees.composite.Composite;
 import pacman.entries.pacman.behaviortrees.composite.Selector;
+import pacman.entries.pacman.behaviortrees.composite.Sequence;
+import pacman.entries.pacman.behaviortrees.leaf.FindSafePath;
 import pacman.entries.pacman.behaviortrees.leaf.HuntGhosts;
 import pacman.entries.pacman.behaviortrees.leaf.RunFromGhosts;
 import pacman.entries.pacman.behaviortrees.leaf.SearchPill;
 import pacman.game.Constants.MOVE;
 import pacman.game.Game;
 
-// ms pacman controlled with behavior trees
+// ms pacman controlled with behaviour trees
 
 // Behavior trees implemented with reference to https://goo.gl/SAVaVh
 
@@ -38,15 +41,18 @@ public class BehaviorTreesPacMan extends Controller<MOVE> {
 
     private void buildTree() {
         this.root = new Selector();
-        Node ghosts = new Selector();
-        Node runFromGhosts = new RunFromGhosts();
+        Node defence = new Sequence();
+
         Node huntGhosts = new HuntGhosts();
         Node searchPill = new SearchPill();
 
-        ((Selector) root).addChild(ghosts);
-        ((Selector) root).addChild(searchPill);
+        ((Composite) root).addChild(defence);
+        ((Composite) root).addChild(huntGhosts);
+        ((Composite) root).addChild(searchPill);
 
-        ((Selector) ghosts).addChild(runFromGhosts);
-        ((Selector) ghosts).addChild(huntGhosts);
+        Node runFromGhosts = new RunFromGhosts();
+        Node findSafePath = new FindSafePath();
+        ((Composite) defence).addChild(runFromGhosts);
+        ((Composite) defence).addChild(findSafePath);
     }
 }

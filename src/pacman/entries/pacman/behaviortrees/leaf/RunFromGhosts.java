@@ -13,13 +13,14 @@ public class RunFromGhosts extends Leaf {
             int ghostIndex = context.getGame().getGhostCurrentNodeIndex(ghost);
             int distanceToGhost = context.getGame().getShortestPathDistance(context.getPacmanPosition(), ghostIndex);
 
-            if (distanceToGhost < 10) { // run away if it's close enough
-                context.setMovementAwayNodeIndex(ghostIndex);
-                return Status.SUCCESS;
-            } else if (distanceToGhost < 15) {
-                context.setContinuousMovementAwayNodeIndex(ghostIndex);
+            if (distanceToGhost < 20) { // run away if it's close enough
+                // context.setMovementAwayNodeIndex(ghostIndex);
                 return Status.SUCCESS;
             }
+            // } else if (distanceToGhost < 15) {
+            // context.setContinuousMovementAwayNodeIndex(ghostIndex);
+            // return Status.SUCCESS;
+            // }
         }
 
         return Status.FAILURE;
