@@ -21,7 +21,7 @@ import pacman.game.Game;
 public class GeneticAlgorithm {
     private static final int POPULATION_SIZE = 250;
     private static final int FITNESS_DELTA = 100; // stop criteria
-    private static final int NUMBER_REPETITIONS_FOR_EVALUATION = 10;
+    private static final int NUMBER_REPETITIONS_FOR_EVALUATION = 30;
 
     private List<Gene> mPopulation;
 
@@ -30,9 +30,7 @@ public class GeneticAlgorithm {
     }
 
     public void evaluateGeneration() {
-        for (Gene gene : mPopulation) {
-            gene.setFitness(evaluateGene(gene));
-        }
+        mPopulation.stream().parallel().forEach(gene -> gene.setFitness(evaluateGene(gene)));
         Collections.sort(mPopulation);
     }
 
