@@ -14,7 +14,7 @@ public class HuntGhosts extends Leaf {
             int ghostIndex = context.getGame().getGhostCurrentNodeIndex(edibleGhost);
             int distanceToGhost = context.getGame().getShortestPathDistance(context.getPacmanPosition(), ghostIndex);
 
-            if (distanceToGhost < 15) { // go to ghost only if it's close enough
+            if (distanceToGhost < context.getChaseThreshold()) { // go to ghost only if it's close enough
                 context.setMovementToNodeIndex(ghostIndex);
                 return Status.SUCCESS;
             }

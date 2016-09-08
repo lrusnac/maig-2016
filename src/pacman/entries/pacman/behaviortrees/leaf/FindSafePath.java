@@ -1,6 +1,5 @@
 package pacman.entries.pacman.behaviortrees.leaf;
 
-import java.awt.Color;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,11 +12,8 @@ import java.util.stream.IntStream;
 import pacman.entries.pacman.behaviortrees.Context;
 import pacman.entries.pacman.behaviortrees.Status;
 import pacman.game.Constants.GHOST;
-import pacman.game.GameView;
 
 public class FindSafePath extends Leaf {
-
-    private static final int DEPTH = 40;
 
     private List<Integer> pillsIndexes;
     private List<Integer> powerPillsIndexes;
@@ -40,9 +36,9 @@ public class FindSafePath extends Leaf {
             ghostsIndexes.put(context.getGame().getGhostCurrentNodeIndex(g), g);
         }
 
-        Entry<Integer, Integer> bestNeighbor = expandPath(context, context.getPacmanPosition(), DEPTH);
+        Entry<Integer, Integer> bestNeighbor = expandPath(context, context.getPacmanPosition(), context.getMaxDepth());
 
-        if (bestNeighbor.getValue() <= DEPTH / 4) {
+        if (bestNeighbor.getValue() <= context.getMaxDepth() / 4) {
             context.setMovementAwayNodeIndex(context.getGame().getGhostCurrentNodeIndex(context.getClosestGhost()));
         } else {
             context.setMovementToNodeIndex(bestNeighbor.getKey());
@@ -54,7 +50,7 @@ public class FindSafePath extends Leaf {
     private Entry<Integer, Integer> expandPath(Context context, int nodeIndex, int steps) {
 
         if (visitedNodes.contains(nodeIndex) || steps == 0) {
-            GameView.addLines(context.getGame(), Color.GREEN, nodeIndex, initialNode);
+            // GameView.addLines(context.getGame(), Color.GREEN, nodeIndex, initialNode);
             return new AbstractMap.SimpleEntry<>(nodeIndex, 0);
         } else {
             visitedNodes.add(nodeIndex);
@@ -67,7 +63,7 @@ public class FindSafePath extends Leaf {
                 if (context.getGame().isGhostEdible(this.ghostsIndexes.get(n))) {
                     neighborsScore.put(n, 10 + expandPath(context, n, steps - 1).getValue());
                 } else {
-                    GameView.addLines(context.getGame(), Color.RED, nodeIndex, initialNode);
+                    // GameView.addLines(context.getGame(), Color.RED, nodeIndex, initialNode);
                     return new AbstractMap.SimpleEntry<>(n, -50);
                 }
             } else if (this.pillsIndexes.contains(n)) {
@@ -87,7 +83,7 @@ public class FindSafePath extends Leaf {
         Integer bestNeighbor = -1;
 
         for (Integer neighbor : neighborsScore.keySet()) {
-            if (neighborsScore.get(neighbor) > bestScore) {
+            if (neighborsScore.get(neighbor) >= bestScore) {
                 bestScore = neighborsScore.get(neighbor);
                 bestNeighbor = neighbor;
             }

@@ -6,6 +6,12 @@ import pacman.game.Constants.MOVE;
 import pacman.game.Game;
 
 public class Context {
+
+    // constants that are later used for genetic algorithm
+    private int escapeThreshold;
+    private int chaseThreshold;
+    private int maxDepth;
+
     // This is the context class that all the nodes will be able to read and write
     // BE AWARE this is a shared context, attention on parallel stuff
 
@@ -90,5 +96,29 @@ public class Context {
 
     public void setMovementAwayNodeIndex(int nodeIndex) {
         nextMove = game.getNextMoveAwayFromTarget(getPacmanPosition(), nodeIndex, DM.PATH);
+    }
+
+    public int getEscapeThreshold() {
+        return escapeThreshold;
+    }
+
+    public void setEscapeThreshold(int escapeThreshold) {
+        this.escapeThreshold = escapeThreshold;
+    }
+
+    public int getChaseThreshold() {
+        return chaseThreshold;
+    }
+
+    public void setChaseThreshold(int chaseThreshold) {
+        this.chaseThreshold = chaseThreshold;
+    }
+
+    public int getMaxDepth() {
+        return maxDepth;
+    }
+
+    public void setMaxDepth(int maxDepth) {
+        this.maxDepth = maxDepth;
     }
 }

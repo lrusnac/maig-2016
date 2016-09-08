@@ -8,8 +8,8 @@ import pacman.entries.pacman.behaviortrees.composite.Composite;
 import pacman.entries.pacman.behaviortrees.composite.Selector;
 import pacman.entries.pacman.behaviortrees.composite.Sequence;
 import pacman.entries.pacman.behaviortrees.leaf.FindSafePath;
+import pacman.entries.pacman.behaviortrees.leaf.GhostTooClose;
 import pacman.entries.pacman.behaviortrees.leaf.HuntGhosts;
-import pacman.entries.pacman.behaviortrees.leaf.RunFromGhosts;
 import pacman.entries.pacman.behaviortrees.leaf.SearchPill;
 import pacman.game.Constants.MOVE;
 import pacman.game.Game;
@@ -25,6 +25,11 @@ public class BehaviorTreesPacMan extends Controller<MOVE> {
     public BehaviorTreesPacMan() {
         super();
         this.context = new Context();
+
+        this.context.setChaseThreshold(15);
+        this.context.setEscapeThreshold(20);
+        this.context.setMaxDepth(40);
+
         this.buildTree();
     }
 
@@ -50,7 +55,7 @@ public class BehaviorTreesPacMan extends Controller<MOVE> {
         ((Composite) root).addChild(huntGhosts);
         ((Composite) root).addChild(searchPill);
 
-        Node runFromGhosts = new RunFromGhosts();
+        Node runFromGhosts = new GhostTooClose();
         Node findSafePath = new FindSafePath();
         ((Composite) defence).addChild(runFromGhosts);
         ((Composite) defence).addChild(findSafePath);
