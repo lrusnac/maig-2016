@@ -23,12 +23,16 @@ public class BehaviorTreesPacMan extends Controller<MOVE> {
     private Node root;
 
     public BehaviorTreesPacMan() {
+        this(20, 15, 40);
+    }
+
+    public BehaviorTreesPacMan(int escapeThreshold, int chaseThreshold, int maxDepth) {
         super();
         this.context = new Context();
 
-        this.context.setChaseThreshold(15);
-        this.context.setEscapeThreshold(20);
-        this.context.setMaxDepth(40);
+        this.context.setChaseThreshold(chaseThreshold);
+        this.context.setEscapeThreshold(escapeThreshold);
+        this.context.setMaxDepth(maxDepth);
 
         this.buildTree();
     }
