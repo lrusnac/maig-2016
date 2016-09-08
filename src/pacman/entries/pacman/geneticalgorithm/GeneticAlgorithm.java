@@ -94,14 +94,14 @@ public class GeneticAlgorithm {
         while (true) {
             population.evaluateGeneration();
 
-            float avgFitness = 0.f;
-            float minFitness = Float.POSITIVE_INFINITY;
-            float maxFitness = Float.NEGATIVE_INFINITY;
+            int avgFitness = 0;
+            int minFitness = Integer.MAX_VALUE;
+            int maxFitness = Integer.MIN_VALUE;
             String bestIndividual = "";
             String worstIndividual = "";
 
             for (int i = 0; i < population.size(); i++) {
-                float currFitness = population.getGene(i).getFitness();
+                int currFitness = population.getGene(i).getFitness();
                 avgFitness += currFitness;
                 if (currFitness < minFitness) {
                     minFitness = currFitness;
