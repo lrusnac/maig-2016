@@ -19,7 +19,7 @@ import pacman.game.Constants.MOVE;
 import pacman.game.Game;
 
 public class GeneticAlgorithm {
-    private static final int POPULATION_SIZE = 250;
+    private static final int POPULATION_SIZE = 100;
     private static final int FITNESS_DELTA = 100; // stop criteria
     private static final int NUMBER_REPETITIONS_FOR_EVALUATION = 30;
 
@@ -74,6 +74,12 @@ public class GeneticAlgorithm {
             if (parent1 != null && parent2 != null) {
                 break;
             }
+        }
+        if (parent1 == null) {
+            parent1 = mPopulation.get(mPopulation.size() - 1);
+        }
+        if (parent2 == null) {
+            parent2 = mPopulation.get(mPopulation.size() - 2);
         }
 
         return Arrays.asList(parent1, parent2);
@@ -148,7 +154,7 @@ public class GeneticAlgorithm {
                         ghostController.getMove(game.copy(), System.currentTimeMillis() + DELAY));
             }
 
-            sum += game.getScore();
+            sum += game.getScore() * (game.getCurrentLevel() + 1);
         }
 
         return sum / NUMBER_REPETITIONS_FOR_EVALUATION;
