@@ -21,11 +21,8 @@ public class FindSafePath extends Leaf {
 
     private List<Integer> visitedNodes;
 
-    private int initialNode;
-
     @Override
     public Status process(Context context) {
-        initialNode = context.getPacmanPosition();
         this.visitedNodes = new ArrayList<>();
 
         this.ghostsIndexes = new HashMap<>();
@@ -50,7 +47,6 @@ public class FindSafePath extends Leaf {
     private Entry<Integer, Integer> expandPath(Context context, int nodeIndex, int steps) {
 
         if (visitedNodes.contains(nodeIndex) || steps == 0) {
-            // GameView.addLines(context.getGame(), Color.GREEN, nodeIndex, initialNode);
             return new AbstractMap.SimpleEntry<>(nodeIndex, 0);
         } else {
             visitedNodes.add(nodeIndex);
@@ -63,7 +59,6 @@ public class FindSafePath extends Leaf {
                 if (context.getGame().isGhostEdible(this.ghostsIndexes.get(n))) {
                     neighborsScore.put(n, 10 + expandPath(context, n, steps - 1).getValue());
                 } else {
-                    // GameView.addLines(context.getGame(), Color.RED, nodeIndex, initialNode);
                     return new AbstractMap.SimpleEntry<>(n, -50);
                 }
             } else if (this.pillsIndexes.contains(n)) {
@@ -74,10 +69,6 @@ public class FindSafePath extends Leaf {
                 neighborsScore.put(n, 1 + expandPath(context, n, steps - 1).getValue());
             }
         }
-
-        // if (steps == DEPTH) {
-        // System.out.println(neighborsScore);
-        // }
 
         Integer bestScore = Integer.MIN_VALUE;
         Integer bestNeighbor = -1;
