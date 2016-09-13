@@ -23,7 +23,7 @@ public class BehaviorTreesPacMan extends Controller<MOVE> {
     private Node root;
 
     public BehaviorTreesPacMan() {
-        this(20, 15, 40);
+        this(25, 6, 41);
     }
 
     public BehaviorTreesPacMan(int escapeThreshold, int chaseThreshold, int maxDepth) {

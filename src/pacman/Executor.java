@@ -15,7 +15,7 @@ import java.util.Random;
 
 import pacman.controllers.Controller;
 import pacman.controllers.HumanController;
-import pacman.controllers.examples.RandomGhosts;
+import pacman.controllers.examples.StarterGhosts;
 import pacman.entries.pacman.BehaviorTreesPacMan;
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;
@@ -42,22 +42,22 @@ public class Executor {
         /*
          * //run multiple games in batch mode - good for testing.
          */
-        // int numTrials = 100;
-        // exec.runExperiment(new BehaviorTreesPacMan(), new StarterGhosts(), numTrials);
+        // int numTrials = 1000;
+        // exec.runExperiment(new BehaviorTreesPacMan(), new Legacy(), numTrials);
 
         /*
          * //run a game in synchronous mode: game waits until controllers respond. int delay=5; boolean visual=true;
-         * exec.runGame(new RandomPacMan(),new RandomGhosts(),visual,delay);
+         * exec.runGame(new RandomPacMan(),new AggressiveGhosts(),visual,delay);
          * 
          */
 
-        exec.runGame(new BehaviorTreesPacMan(), new RandomGhosts(), true, 10);
+        // exec.runGame(new BehaviorTreesPacMan(), new RandomGhosts(), true, 10);
 
         /// *
         // run the game in asynchronous mode.
         boolean visual = true;
         // exec.runGameTimed(new NearestPillPacMan(),new AggressiveGhosts(),visual);
-        // exec.runGameTimed(new StarterPacMan(), new StarterGhosts(), visual);
+        exec.runGameTimed(new BehaviorTreesPacMan(), new StarterGhosts(), visual);
         // exec.runGameTimed(new BehaviorTreesPacMan(), new StarterGhosts(), visual);
         // exec.runGameTimed(new HumanController(new KeyBoardInput()),new StarterGhosts(),visual);
         // */
