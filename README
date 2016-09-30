@@ -1,0 +1,8 @@
+This is the hand-in for the first PacMan competition.
+
+In this hand-in I implemented a Behaviour Tree based Controller. The optimal parameters were found by a Genetic Algorithm. The fitness function during the training was: lvl*score, so this way the pacman is not limited to eat ghosts only but also go further in the levels. Since it was trained against the Standard ghosts controller it will give the best performance against them.
+
+In order to run the controller you just need to put the source code inside `src/pacman/entries`.
+The controller class is: `pacman.entries.leru.pacman.BehaviorTreesPacMan`.
+
+see figure1.pdf for the performance of the controller against different ghosts
